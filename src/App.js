@@ -4,11 +4,13 @@ import Home from "./screen/Home";
 import Login from "./screen/Login";
 import Gallery from "./screen/Gallery";
 import Header from "./components/Header";
+import List from "./screen/List";
+import ArtObject from "./components/ArtObject";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello React</h1>
       <BrowserRouter>
         <Header />
         <Switch>
@@ -21,6 +23,7 @@ function App() {
           <Route path="/gallery">
             <Gallery />
           </Route>
+          <Route path="/List" component={List} />
         </Switch>
       </BrowserRouter>
     </div>

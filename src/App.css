@@ -1,11 +1,13 @@
-/* check out: typewriter effect, hexagons, gradient color, Parallax scrolling */
+/* check out: typewriter effect, hexagons/honeycomb grid, Responsive Honeycomb Grid, 
+honeycomb buttons on hover, gradient color, Parallax scrolling, CSS Card Collections, turn Cards, CSS Box Shadow generator (als Bilderrahmen),
+CSS Picture Frame (saved on codepen) responsive?, construct gallery, slideshow, pagination */
 
-/* body {
+body {
   font-family: Overpass;
   color: #404042;
   font-size: 18px;
 }
-
+/*
 h1, h2, h3 {
   font-family: Chivo;
 }
@@ -106,3 +108,19 @@ p {
 .footer p {
   color: white;
 } */
+
+* {
+  margin: 0;
+}
+.App {
+  background-color: azure;
+}
+.navigationfield {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 56 px;
+  padding: 12px 4px 4px 16px;
+  background-color: rgb(87, 137, 247);
+  color: black;
+}
