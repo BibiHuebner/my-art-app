@@ -1,6 +1,11 @@
-//2nd page: list of search entry
-//fetch data here
 //?Maybe: fetch woanders oder separieren und darauf zugreifen
+//pagination? how to display 100 more? infinite scroll/more button
+//like buttons
+//click for more info
+
+//neuer fetch mit weniger daten
+//import InfiniteScroll from "react-infinite-scroll-component";
+//? filter+++
 
 import React, { useEffect, useState } from "react";
 import ArtObject from "../components/ArtObject";
@@ -10,18 +15,22 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
-//import Pin from "../components/Pin";
+import "../App.css";
+import Container from "react-bootstrap/Container";
 
 const List = () => {
   const [list, setList] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  // const fetchRandomArtworks = () => {};
   const getMyData = () => {
     fetch(
+      "https://api.harvardartmuseums.org/image?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&size=10&sort=random"
       //"https://api.harvardartmuseums.org/object?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&size=20"
-      "https://api.harvardartmuseums.org/object?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&size=200&page=50"
+      //"https://api.harvardartmuseums.org/object?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&size=200&page=50"
+      //"https://api.harvardartmuseums.org/object?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&size=20&sort=random"
+      //"https://api.harvardartmuseums.org/object?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&sort=random"
+      //random in API call, no randomize function used
     )
       .then((res) => {
         console.log(res);
@@ -32,8 +41,10 @@ const List = () => {
         setList(data.records);
         setLoading(false);
       })
-      .catch((error) => console.log(`error`, error));
-    setError(error);
+      .catch((error) => {
+        setError(error);
+        console.log(`error`, error);
+      });
   };
   useEffect(() => {
     getMyData();
@@ -43,55 +54,77 @@ const List = () => {
     setSearchTerm(e.target.value);
   };
   return (
-    <div>
-      <input
-        type="text"
-        tabIndex="1"
-        placeholder="search"
-        value={searchTerm}
-        onChange={handleChange}
-        //onChange={(e) => onFilter(e.target.value)}
-      ></input>
-      <p>Your search: {searchTerm}</p>
-      <button /*onClick={displayRandomArt}*/>random</button>
-      {!loading ? (
-        list &&
-        list
+    <div /*className="cardgrid"*/ className="container">
+      <div className="search">
+        <input
+          className="searchfield"
+          type="text"
+          placeholder="  search"
+          value={searchTerm}
+          onChange={handleChange}
+        ></input>
+        <p>Your search: {searchTerm}</p>
+        <button className="refreshbutton" onClick={getMyData}>
+          refresh
+        </button>
+      </div>
+      <div className="cardgrid">
+        {!loading ? (
+          list &&
+          list
+            /*
+            .filter((artobject) => {
+              return artobject.title
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase());
+            })*/
 
-          .filter((artobject) => {
-            return artobject.title
-              .toLowerCase()
-              .includes(searchTerm.toLowerCase());
-          })
-
-          .map((artobject, index) => {
-            <ArtObject key={artobject.id} artobject={artobject} />;
-            //artobject hier naming wie ich will, index same
-            return (
-              <p key={artobject.id}>
-                {" "}
-                <ArtObject key={artobject.id} artobject={artobject} />;
-              </p>
-            );
-          })
-      ) : (
-        <p>loading</p>
-      )}
-      {error && <p>{error}</p>}
+            .map((artobject, index) => {
+              <ArtObject key={artobject.id} artobject={artobject} />;
+              //artobject hier naming wie ich will, index same
+              return (
+                <p key={artobject.id}>
+                  <ArtObject key={artobject.id} artobject={artobject} />
+                </p>
+              );
+            })
+        ) : (
+          <p>
+            {
+              <img
+                //src="https://www.digitalengineering247.com/images/article/CNH-Front-End-Loader-e1507819681469.png"
+                src="https://i.gifer.com/7TwJ.gif"
+                alt="loading"
+              />
+            }
+          </p> //loader image not working
+        )}
+        {error && <p>{error}</p>}
+      </div>
     </div>
   );
 };
 
-/* randomize(data, limit) {
-        let result = [];
-        let numbers = [];
-        for (let i = 0; i < limit; i++) {
-            const random = Math.floor(Math.random() * data.length);
-            if (numbers.indexOf(random) === -1) {
-                numbers.push(random);
-                result.push(data[random]);
-            }
-        }
-        return result;
-*/
 export default List;
+
+/*
+<InfiniteScroll
+  dataLength={images}
+  next={() => fetchImages(5)}
+  hasMore={true}
+  loader={
+    <img
+      src="https://res.cloudinary.com/chuloo/image/upload/v1550093026/scotch-logo-gif_jq4tgr.gif"
+      alt="loading"
+    />
+  }
+>
+  <div className="image-grid" style={{ marginTop: "30px" }}>
+    {loaded
+      ? images.map((image, index) => (
+          <UnsplashImage url={image.urls.regular} key={index} />
+        ))
+      : ""}
+  </div>
+</InfiniteScroll>;
+*/

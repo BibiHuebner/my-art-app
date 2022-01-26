@@ -2,11 +2,62 @@
 honeycomb buttons on hover, gradient color, Parallax scrolling, CSS Card Collections, turn Cards, CSS Box Shadow generator (als Bilderrahmen),
 CSS Picture Frame (saved on codepen) responsive?, construct gallery, slideshow, pagination */
 
-body {
-  font-family: Overpass;
-  color: #404042;
-  font-size: 18px;
+.cardgrid {
+  /*display: flex;
+  flex-wrap: wrap;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 10px;
+  width: 80%;
+  margin-top: 15px;
+  height: 100%;
+  margin: 5;
+  padding: 5;
+  width: 80vw;
+  column-count: 3;
+  column-gap: 10px;
+  grid-gap: 5px;
+  justify-content: center;*/
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: minmax(50px, auto);
+  width: 100%;
+  /*background: #404042;*/
+  /*background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);*/
 }
+
+img {
+  display: flex;
+  border-radius: 16px;
+  display: inline-flex;
+  cursor: pointer;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.container {
+  /*background-color: lemonchiffon;*/
+  background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #dadffa);
+}
+/*
+.container {
+   margin-top: 50px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 800px;
+  margin: auto;
+} */
+/*
+.headersection {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 12 4 4 12;
+  background-color: burlywood;
+  color: lemonchiffon;
+}
+*/
 /*
 h1, h2, h3 {
   font-family: Chivo;
@@ -51,6 +102,7 @@ p {
   padding: 150px 0;
   text-align: center;
 }
+
 
 .banner h1 {
   color: white;
@@ -109,18 +161,54 @@ p {
   color: white;
 } */
 
-* {
-  margin: 0;
-}
+/*
 .App {
   background-color: azure;
-}
+  margin: 0;
+  padding: 0;
+  width: "80vw";
+  position: "absolute";
+  left: "50%";
+  transform: "translateX(-50%)";
+  display: "grid";
+} */
 .navigationfield {
   display: flex;
   flex-direction: row;
-  align-items: center;
   height: 56 px;
   padding: 12px 4px 4px 16px;
   background-color: rgb(87, 137, 247);
-  color: black;
+  width: 100%;
+  display: inline-flex;
+  background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #dadffa);
 }
+
+.searchfield {
+  border-radius: 24px;
+
+  height: 56 px;
+  background-color: azure;
+  cursor: pointer;
+  color: #1a48e3;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.refreshbutton {
+  border-radius: 24px;
+
+  height: 56 px;
+  flex-direction: row;
+  background-color: azure;
+}
+.search {
+  display: flex;
+  padding: 16px 16px 16px 16px;
+}
+/*
+.imageitem:nth-child(5n) {
+  grid-column-end: span 2;
+}*/
+/*.App {
+  background: #404042;
+}*/

@@ -4,11 +4,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
+import "../assets/binoculars.png";
 
 const Header = () => {
   return (
     /* <Wrapper>
-       <LogoWrapper<LogoWrapper/>
+       
+    <LogoWrapper>
+    <img src={'src/assets/icons8-binoculars-80 (1).png alt="Logo"'} />;
+    
+    <LogoWrapper/> 
+  
        <HomePageButton></HomePageButton/>
        <SearchWrapper>
        <SearchBarWrapper>
@@ -18,15 +24,15 @@ const Header = () => {
        </Wrapper>
 */
 
-    <div>
+    <div classname="headersection">
       <nav className="navigationfield">
-        <h1>
-          <h1>Logo</h1>
-        </h1>
+        <p>logo</p>
         <h1>
           <Link to="/">Home</Link>
         </h1>
-
+        <h1>
+          <Link to="/details">Details</Link>
+        </h1>
         <h1>
           <Link to="/login">Login</Link>
         </h1>
@@ -36,13 +42,6 @@ const Header = () => {
         <h1>
           <Link to="/list">List</Link>
         </h1>
-        <input
-          type="text"
-          tabIndex="1"
-          placeholder="search"
-          // onChange={(e) => onFilter(e.target.value)}
-        ></input>
-        <button /*onClick={displayRandomArt}*/>random</button>
       </nav>
     </div>
     //  </Wrapper>
@@ -50,3 +49,5 @@ const Header = () => {
 };
 
 export default Header;
+
+/* import styled components doesn't show*/
