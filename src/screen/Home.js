@@ -11,13 +11,16 @@
 //neuer fetch mit weniger daten
 //import InfiniteScroll from "react-infinite-scroll-component";
 //refresh button
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import List from "./List";
 import "../App.css";
 import useFetch from "../components/useFetch";
 import ArtObject from "../components/ArtObject";
+import { ListContext } from "../context/listContext";
 
 const Home = () => {
+  const { getMyData } = useContext(ListContext);
+  //console.log("context", context);
   const [searchTerm, setSearchTerm] = useState("");
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
@@ -25,7 +28,8 @@ const Home = () => {
   const { list, loading, error } = useFetch(
     "https://api.harvardartmuseums.org/object?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&size=10&sort=random&fields=century,title,id,description,medium,technique,primaryimageurl,alttext,culture,people"
   );
-  // console.log(list, loading, error); console logs okay
+  // pagination: error 401 if i include &size=10&page=10
+  console.log(list, loading, error);
   if (loading) return <h1>LOADING</h1>;
   if (error) console.log(error);
 

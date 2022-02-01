@@ -15,13 +15,13 @@ const ArtObject = (props) => {
   const { artobject } = props;
 
   return (
-    <Container>
-      <div>
-        <Link to={`/details/${artobject.id}`}>
-          <img className="imageitem" src={artobject.primaryimageurl} alt="" />
-        </Link>
-      </div>
-    </Container>
+    // <Container>
+    <div>
+      <Link to={`/details/${artobject.id}`}>
+        <img className="imageitem" src={artobject.primaryimageurl} alt="" />
+      </Link>
+    </div>
+    // </Container>
   );
 };
 

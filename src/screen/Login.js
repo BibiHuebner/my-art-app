@@ -1,10 +1,16 @@
 //User logs in to save favorite piece of art/use chatroom
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Container from "react-bootstrap/Container";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
+import { AuthContext } from "../context/authContext";
 
 const Login = () => {
+  const { user, setUser } = useContext(AuthContext);
+  const login = () => {
+    console.log("user", user);
+    setUser({ username: "Annika" });
+  };
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [passwordError, setpasswordError] = useState("");
@@ -77,16 +83,16 @@ const Login = () => {
                   {passwordError}
                 </small>
               </div>
-              <div className="form-group form-check">
+              {/* <div className="form-group form-check">
                 <input
                   type="checkbox"
                   className="form-check-input"
                   id="exampleCheck1"
                 />
                 <label className="form-check-label">Check me out</label>
-              </div>
-              <button type="submit" className="btn btn-primary">
-                Submit
+              </div> */}
+              <button onClick={login} type="submit" className="btn btn-primary">
+                Login
               </button>
             </form>
           </div>

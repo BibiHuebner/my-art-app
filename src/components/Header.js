@@ -5,6 +5,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import "../assets/binoculars.png";
+import Register from "../screen/Register";
 
 const Header = () => {
   return (
@@ -35,6 +36,9 @@ const Header = () => {
         </h1> */}
         <h1>
           <Link to="/login">Login</Link>
+        </h1>
+        <h1>
+          <Link to="/register">Register</Link>
         </h1>
         <h1>
           <Link to="/gallery">Gallery</Link>
