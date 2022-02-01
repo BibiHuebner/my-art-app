@@ -24,23 +24,20 @@ const Header = () => {
        </Wrapper>
 */
 
-    <div classname="headersection">
+    <div className="headersection">
       <nav className="navigationfield">
         <p>logo</p>
         <h1>
           <Link to="/">Home</Link>
         </h1>
-        <h1>
+        {/* <h1>
           <Link to="/details">Details</Link>
-        </h1>
+        </h1> */}
         <h1>
           <Link to="/login">Login</Link>
         </h1>
         <h1>
           <Link to="/gallery">Gallery</Link>
-        </h1>
-        <h1>
-          <Link to="/list">List</Link>
         </h1>
       </nav>
     </div>

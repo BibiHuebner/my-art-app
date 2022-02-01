@@ -18,12 +18,17 @@ CSS Picture Frame (saved on codepen) responsive?, construct gallery, slideshow, 
   grid-gap: 5px;
   justify-content: center;*/
   display: grid;
+  /*display: inline-block;*/
 
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-auto-rows: minmax(50px, auto);
   width: 100%;
   /*background: #404042;*/
   /*background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);*/
+}
+
+.detailscard {
+  background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #dadffa);
 }
 
 img {
@@ -36,7 +41,6 @@ img {
   height: 100%;
 }
 .container {
-  /*background-color: lemonchiffon;*/
   background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #dadffa);
 }
 /*
@@ -62,7 +66,18 @@ img {
 h1, h2, h3 {
   font-family: Chivo;
 }
-
+.AppContainerLogin {
+  width: 280px;
+  height:550px;
+  display: flex
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  box-shadow: 0 0 2px rgba(15, 15, 15, 0.3);
+  position: relative;
+  overflow: hidden;
+}
 a {
   color: #1A48E3;
   font-weight: bold;

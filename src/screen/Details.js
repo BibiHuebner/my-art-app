@@ -7,29 +7,8 @@ import "../App.css";
 import { useParams } from "react-router-dom";
 import ArtObject from "../components/ArtObject";
 
-//gewünscht ist eine card:
-/*<div className="cardgrid">
-  <Container>
-    <Row>
-      <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={artobject.primaryimageurl} />
-        <Card.Body>
-          <Card.Title>{artobject.title}</Card.Title>
-          <Card.Text>
-            {artobject.technique}
-            {artobject.century}
-            {artobject.culture}
-          </Card.Text>
-          <Button variant="primary">More information</Button>
-        </Card.Body>
-      </Card>
-    </Row>
-  </Container>
-</div>;*/
-
-//zweiten fetch starten //templatestrings wiederholen
-
-//customhookfetch pedro: überlegen, wie hier verwenden, fetch auslagern
+//customhookfetch tutorial: überlegen, wie hier verwenden, fetch auslagern
+//context
 const Details = () => {
   const { id } = useParams();
   const [details, setDetails] = useState({ id });
@@ -38,7 +17,7 @@ const Details = () => {
   const detailUrl = () => {
     fetch(
       `https://api.harvardartmuseums.org/object/${id}?apikey=58de05bf-ee95-4975-9602-dd1902a5464e`
-    )
+    ) //backticks!!!
       .then((res) => {
         console.log(res);
         return res.json();
@@ -52,7 +31,7 @@ const Details = () => {
       .catch((error) => console.log(`error`, error));
     setError(error);
   };
-  //muss ich hier mappen?
+
   //naming: präzises naming: im fetch heißt es hier nicht mehr list sondern es geht um ein detailitem
   //fetch , console log :kommt der fetch an?dann erst return schreiben
   useEffect(() => {
@@ -61,11 +40,19 @@ const Details = () => {
   console.log(`details`, details);
   return (
     <div className="detailscard">
-      <h1>Detailansicht {details.id}</h1>
+      <h1>{details.title}</h1>
+      <h1> {details.people ? details.people[0].name : ""}</h1>
+      <h2>{details.culture}</h2>
+      <h3> {details.century}</h3>
+      <h4>{details.period}</h4>
+      <h4>{details.technique}</h4>
+      <h4>{details.medium}</h4>
+      <h4>{details.classification}</h4>
+
       <img
         className="imageitem"
-        src={details.baseimageurl}
-        alt={details.alttext}
+        src={details.primaryimageurl}
+        alt={details.description}
       />
     </div>
   );

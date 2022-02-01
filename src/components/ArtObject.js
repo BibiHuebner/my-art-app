@@ -15,31 +15,10 @@ const ArtObject = (props) => {
   const { artobject } = props;
 
   return (
-    //1st idea: display cards with titles etc. no grid
-    /* <div className="cardgrid">
-      <Container>
-        <Row>
-          <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src={artobject.primaryimageurl} />
-            <Card.Body>
-              <Card.Title>{artobject.title}</Card.Title>
-              <Card.Text>
-                {artobject.technique}
-                {artobject.century}
-                {artobject.culture}
-              </Card.Text>
-              <Button variant="primary">More information</Button>
-            </Card.Body>
-          </Card>
-        </Row>
-      </Container>
-    </div> */
-    // grid not working:
-
     <Container>
       <div>
         <Link to={`/details/${artobject.id}`}>
-          <img className="imageitem" src={artobject.baseimageurl} alt="" />
+          <img className="imageitem" src={artobject.primaryimageurl} alt="" />
         </Link>
       </div>
     </Container>

@@ -1,10 +1,3 @@
-//?Maybe: fetch woanders oder separieren und darauf zugreifen
-//pagination? how to display 100 more? infinite scroll/more button
-//like buttons
-//click for more info
-
-//neuer fetch mit weniger daten
-//import InfiniteScroll from "react-infinite-scroll-component";
 //? filter+++
 
 import React, { useEffect, useState } from "react";
@@ -17,6 +10,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import "../App.css";
 import Container from "react-bootstrap/Container";
+import useFetch from "../components/useFetch";
 
 const List = () => {
   const [list, setList] = useState(null);
@@ -25,12 +19,7 @@ const List = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const getMyData = () => {
     fetch(
-      "https://api.harvardartmuseums.org/image?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&size=10&sort=random"
-      //"https://api.harvardartmuseums.org/object?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&size=20"
-      //"https://api.harvardartmuseums.org/object?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&size=200&page=50"
-      //"https://api.harvardartmuseums.org/object?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&size=20&sort=random"
-      //"https://api.harvardartmuseums.org/object?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&sort=random"
-      //random in API call, no randomize function used
+      "https://api.harvardartmuseums.org/object?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&size=10&sort=random&fields=century,title,id,description,medium,technique,primaryimageurl,alttext,culture,people"
     )
       .then((res) => {
         console.log(res);
@@ -39,6 +28,7 @@ const List = () => {
       .then((data) => {
         console.log(`data`, data);
         setList(data.records);
+
         setLoading(false);
       })
       .catch((error) => {
@@ -50,6 +40,7 @@ const List = () => {
     getMyData();
   }, []);
   console.log(`list`, list);
+
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -72,12 +63,16 @@ const List = () => {
         {!loading ? (
           list &&
           list
-            /*
+
             .filter((artobject) => {
               return artobject.title
+                .toLowerCase() /*||
+                artobject.century.toLowerCase() ||
+                artobject.medium.toLowerCase() ||
+                artobject.culture */
                 .toLowerCase()
                 .includes(searchTerm.toLowerCase());
-            })*/
+            })
 
             .map((artobject, index) => {
               <ArtObject key={artobject.id} artobject={artobject} />;
