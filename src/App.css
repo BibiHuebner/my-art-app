@@ -43,6 +43,9 @@ img {
 .container {
   background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #dadffa);
 }
+.gallery {
+  background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #dadffa);
+}
 /*
 .container {
    margin-top: 50px;
@@ -197,7 +200,9 @@ p {
   display: inline-flex;
   background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #dadffa);
 }
-
+/* .icon {
+  font-size: 50 px;
+} */
 .searchfield {
   border-radius: 24px;
 

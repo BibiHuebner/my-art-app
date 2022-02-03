@@ -1,10 +1,15 @@
 //save a clicked item in a favorites list
-import React from "react";
+import React, { useContext } from "react";
+import ColorLensIcon from "@mui/icons-material/ColorLens";
+import { AuthContext } from "../context/authContext";
 
 const Gallery = () => {
+  const { user, setUser, logIn } = useContext(AuthContext);
+  console.log("user", user);
   return (
-    <div>
-      <h2>My art gallery</h2>
+    <div className="gallery">
+      <ColorLensIcon className="logo" color="primary" />
+      <h2>save your favorites here. Log in to have access to your gallery</h2>
     </div>
   );
 };

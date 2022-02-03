@@ -6,6 +6,7 @@ import List from "./List";
 import "../App.css";
 import { useParams } from "react-router-dom";
 import ArtObject from "../components/ArtObject";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
 //customhookfetch tutorial: überlegen, wie hier verwenden, fetch auslagern
 //context
@@ -48,7 +49,7 @@ const Details = () => {
       <h4>{details.technique}</h4>
       <h4>{details.medium}</h4>
       <h4>{details.classification}</h4>
-
+      <FavoriteBorderOutlinedIcon />
       <img
         className="imageitem"
         src={details.primaryimageurl}

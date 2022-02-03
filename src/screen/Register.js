@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Container from "react-bootstrap/Container";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ColorLensIcon from "@mui/icons-material/ColorLens";
 import Button from "react-bootstrap/Button";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import firebase from "../firebase-config";
+import { AuthContext } from "../context/authContext";
+import { Link, useHistory } from "react-router-dom";
 
 //<form id="loginform" onSubmit={loginSubmit}>
 const Register = () => {
@@ -24,25 +27,26 @@ const Register = () => {
     console.log("(email,password)", (email, password));
   };
   const auth = getAuth();
+  //the following is now in authcontext:
   const register = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         console.log("user", user);
-
-        // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         // ..
+
         console.log("errorMessage", errorMessage);
       });
   };
   return (
     <div className="App">
       <div className="container">
+        <ColorLensIcon color="primary" />
         <div className="row d-flex justify-content-center">
           <div className="col-md-4">
             <form id="loginform">
@@ -84,6 +88,10 @@ const Register = () => {
               >
                 Register
               </button>
+              <Link to="/login">
+                Already registered?
+                <p className="forgot-password text-right"></p>
+              </Link>
             </form>
           </div>
         </div>

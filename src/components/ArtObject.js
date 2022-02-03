@@ -11,7 +11,6 @@ import "../App.css";
 import { Details } from "@mui/icons-material";
 
 const ArtObject = (props) => {
-  //console.log(`props`, props);
   const { artobject } = props;
 
   return (

@@ -18,6 +18,7 @@ import Details from "./screen/Details";
 import Register from "./screen/Register";
 import { ListContextProvider } from "./context/listContext";
 import { AuthContextProvider } from "./context/authContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // to do activeClassName="active" end
 
@@ -41,9 +42,9 @@ function App() {
               <Route exact path="/register">
                 <Register />
               </Route>
-              <Route path="/gallery">
+              <ProtectedRoute path="/gallery">
                 <Gallery />
-              </Route>
+              </ProtectedRoute>
               <Route path="/List" component={List} />
             </Switch>
           </ListContextProvider>

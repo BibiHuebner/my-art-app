@@ -1,24 +1,19 @@
-//landing page with search field
-//mappen
-//hier den ganzen fetch rüberholen
-//maybe context: dann nur noch 1 fetch
 //pagination? how to display 100 more? infinite scroll/more button
 //like buttons
 //click for more info
 // see Bootstrap masonry grid/ card columns
-//context/usecontext fetch
-//customhook für fetch
-//neuer fetch mit weniger daten
 //import InfiniteScroll from "react-infinite-scroll-component";
 //refresh button
 import React, { useState, useContext } from "react";
 import List from "./List";
+import SearchIcon from "@mui/icons-material/Search";
 import "../App.css";
 import useFetch from "../components/useFetch";
 import ArtObject from "../components/ArtObject";
 import { ListContext } from "../context/listContext";
-
+import { AuthContext } from "../context/authContext";
 const Home = () => {
+  const { user, setUser } = useContext(AuthContext);
   const { getMyData } = useContext(ListContext);
   //console.log("context", context);
   const [searchTerm, setSearchTerm] = useState("");
@@ -28,8 +23,9 @@ const Home = () => {
   const { list, loading, error } = useFetch(
     "https://api.harvardartmuseums.org/object?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&size=10&sort=random&fields=century,title,id,description,medium,technique,primaryimageurl,alttext,culture,people"
   );
-  // pagination: error 401 if i include &size=10&page=10
-  console.log(list, loading, error);
+  // pagination: error 401 if i include &size=10&page=10, test again in postman
+  //console.log(list, loading, error);
+  console.log("user", user);
   if (loading) return <h1>LOADING</h1>;
   if (error) console.log(error);
 
@@ -39,11 +35,11 @@ const Home = () => {
         <input
           className="searchfield"
           type="text"
-          placeholder="  search"
+          // placeholder="  search"
           value={searchTerm}
           onChange={handleChange}
         ></input>
-
+        <SearchIcon />
         {/* <button className="refreshbutton" onClick={getMyData}>
           refresh
         </button> */}
