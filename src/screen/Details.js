@@ -5,11 +5,14 @@ import { useEffect, useState } from "react";
 import List from "./List";
 import "../App.css";
 import { useParams } from "react-router-dom";
-import ArtObject from "../components/ArtObject";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 
-//customhookfetch tutorial: überlegen, wie hier verwenden, fetch auslagern
-//context
+//context ? storeFavorite?
 const Details = () => {
   const { id } = useParams();
   const [details, setDetails] = useState({ id });
@@ -41,20 +44,36 @@ const Details = () => {
   console.log(`details`, details);
   return (
     <div className="detailscard">
-      <h1>{details.title}</h1>
-      <h1> {details.people ? details.people[0].name : ""}</h1>
-      <h2>{details.culture}</h2>
-      <h3> {details.century}</h3>
-      <h4>{details.period}</h4>
-      <h4>{details.technique}</h4>
-      <h4>{details.medium}</h4>
-      <h4>{details.classification}</h4>
-      <FavoriteBorderOutlinedIcon />
-      <img
-        className="imageitem"
-        src={details.primaryimageurl}
-        alt={details.description}
-      />
+      <Container className="detailscard">
+        <Row classname="detailscard">
+          <Card classname="detailscard" className="text-center">
+            <Card.Img
+              classname="detailscard"
+              variant="top"
+              src={details.primaryimageurl}
+            />
+            <Card.Body classname="detailscard">
+              <FavoriteBorderOutlinedIcon
+                color="primary"
+                className="like"
+                type="submit"
+                // onClick={storeFavorite}
+                //className="btn btn-primary"
+              />
+              <Card.Title>{details.title}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">
+                {details.people ? details.people[0].name : ""}
+              </Card.Subtitle>
+              <Card.Text>{details.century}</Card.Text>
+              <Card.Text>{details.period}</Card.Text>
+              <Card.Text> {details.culture}</Card.Text>
+              <Card.Text> {details.technique}</Card.Text>
+              <Card.Text> {details.medium}</Card.Text>
+              <Card.Text>{details.classification}</Card.Text>
+            </Card.Body>
+          </Card>
+        </Row>
+      </Container>
     </div>
   );
 };

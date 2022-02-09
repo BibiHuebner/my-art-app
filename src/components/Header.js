@@ -1,12 +1,13 @@
-//logo, burger menu, icon to show if logged in
-//insert material ui icon, import library and in import section
+//todo: login logout I am missing something, logout link in header doesn't
 
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
-import "../assets/binoculars.png";
-import Register from "../screen/Register";
+//import "../assets/binoculars.png";
+//import Register from "../screen/Register";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
 import { AuthContext } from "../context/authContext";
 const Header = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -17,23 +18,39 @@ const Header = () => {
   return (
     <div className="headersection">
       <nav className="navigationfield">
-        {/* <p>logo</p> */}
-        <ColorLensIcon className="icon" color="primary" />
+        <ColorLensIcon className="icon" color="primary" sx={{ fontSize: 40 }} />
         <h1>
-          <Link to="/">Home</Link>
+          <Link className="link" to="/">
+            Home
+          </Link>
         </h1>
-        {/* <h1>
-          <Link to="/details">Details</Link>
-        </h1> */}
+
+        {/* {user ? (
+          <h1>
+            <Link to="/logOut">Logout</Link>
+          </h1>
+        ) : (
+          <h1>
+            <Link to="/login">Login</Link>
+          </h1>
+        )} */}
+
         <h1>
-          <Link to="/login">Login</Link>
+          {!user && (
+            <Link className="link" to="/login">
+              Login
+            </Link>
+          )}
         </h1>
-        {/* <h1>
-          <Link to="/register">Register</Link>
-        </h1> */}
+        {/* <h1>{user && <Link to="/logOut">Logout</Link>}</h1> */}
         <h1>
-          <Link to="/gallery">Gallery</Link>
+          {user && (
+            <Link className="link" to="/gallery">
+              Gallery
+            </Link>
+          )}
         </h1>
+        {/* //use the avatar to logout without button? if yes, needs hover  */}
         <p>
           {user && (
             <button onClick={logOut} type="submit" className="btn btn-primary">
@@ -41,10 +58,20 @@ const Header = () => {
             </button>
           )}
         </p>
-        <h1>{user && <h2>{user.email}</h2>}</h1>
+        <h1>
+          {user && (
+            <AccountCircleIcon
+              sx={{ fontSize: 40 }}
+              color="primary"
+              onClick={logOut}
+              type="submit"
+              className="userAvatar"
+            />
+          )}
+        </h1>
+        {/* <h2>{user.email}</h2> new: display user icon instead of email*/}
       </nav>
     </div>
-    //  </Wrapper>
   );
 };
 

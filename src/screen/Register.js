@@ -13,6 +13,10 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [user, setUser] = useState(null);
+  //I want to redirect to login after registering
+  // const history = useHistory();
+  //   history.push("/login");
+
   const handleEmailChange = (e) => {
     // console.log("e.target", e.target);
     setEmail(e.target.value);
@@ -45,8 +49,11 @@ const Register = () => {
   };
   return (
     <div className="App">
-      <div className="container">
-        <ColorLensIcon color="primary" />
+      <div className="LogContainer">
+        <ColorLensIcon color="primary" sx={{ fontSize: 40 }} />
+        <h3>
+          sign up to save your favorites and to have access to your gallery
+        </h3>
         <div className="row d-flex justify-content-center">
           <div className="col-md-4">
             <form id="loginform">
@@ -66,6 +73,7 @@ const Register = () => {
                   {emailError}
                 </small> */}
               </div>
+
               <div className="form-group">
                 <label>Password</label>
                 <input
@@ -88,7 +96,7 @@ const Register = () => {
               >
                 Register
               </button>
-              <Link to="/login">
+              <Link className="link" to="/login">
                 Already registered?
                 <p className="forgot-password text-right"></p>
               </Link>

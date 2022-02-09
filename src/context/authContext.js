@@ -26,13 +26,6 @@ export const AuthContextProvider = (props) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         // ..
-        if (errorCode == "auth/invalid-email") {
-          setError("Email not valid");
-        } else if (errorCode == "auth/invalid-password") {
-          setError(
-            "Password not valid. It must be a string with at least six characters"
-          );
-        }
         console.log("errorMessage", errorMessage);
       });
   };
@@ -88,7 +81,6 @@ export const AuthContextProvider = (props) => {
     checkUser();
   }, []);
 
-  //send the rest of the function (register etc)
   return (
     <AuthContext.Provider
       value={{ user, setUser, logIn, logout, register, error }}

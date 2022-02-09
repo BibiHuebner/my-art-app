@@ -65,13 +65,15 @@ const List = () => {
           list
 
             .filter((artobject) => {
-              return artobject.title
-                .toLowerCase() /*||
+              return (
+                artobject.title
+                  .toLowerCase() /*||
                 artobject.century.toLowerCase() ||
                 artobject.medium.toLowerCase() ||
                 artobject.culture */
-                .toLowerCase()
-                .includes(searchTerm.toLowerCase());
+                  // .toLowerCase()
+                  .includes(searchTerm.toLowerCase())
+              );
             })
 
             .map((artobject, index) => {

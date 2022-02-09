@@ -1,18 +1,19 @@
+//to do: clean up login logout and error messages
+
 import React, { useState, useContext } from "react";
-import Container from "react-bootstrap/Container";
+//import Container from "react-bootstrap/Container";
 import { Link, useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
+//import Button from "react-bootstrap/Button";
 import { AuthContext } from "../context/authContext";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
-import { Logout } from "@mui/icons-material";
+//import { Logout } from "@mui/icons-material";
 
 const Login = () => {
   const { user, setUser, logIn } = useContext(AuthContext);
   const history = useHistory();
   const handleLogin = () => {
     logIn(email, password);
-    //console.log("user", user);
     history.push("/gallery");
   };
   const logOut = () => {
@@ -56,9 +57,10 @@ const Login = () => {
 
     //   {/* <button onClick={logIn}>Login</button> */}
     <div className="App">
-      <div className="container">
+      <div className="LogContainer">
+        {/* //text align: center, display flex+ justify content: center */}
         <ColorLensIcon color="primary" />
-        <h2>Login to save your favorites</h2>
+        <h3>Login to save your favorites</h3>
         <div className="row d-flex justify-content-center">
           <div className="col-md-4">
             <form id="loginform" onSubmit={loginSubmit}>
@@ -108,7 +110,7 @@ const Login = () => {
                   Login
                 </button>
               )}
-              <Link to="/register">
+              <Link className="link" to="/register">
                 <p className="forgot-password text-right">
                   Not yet registered?
                 </p>
