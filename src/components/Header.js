@@ -7,7 +7,7 @@ import "../App.css";
 //import Register from "../screen/Register";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
+import AppLogo from "./AppLogo";
 import { AuthContext } from "../context/authContext";
 const Header = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -18,7 +18,8 @@ const Header = () => {
   return (
     <div className="headersection">
       <nav className="navigationfield">
-        <ColorLensIcon className="icon" color="primary" sx={{ fontSize: 40 }} />
+        <AppLogo />
+        {/* <ColorLensIcon className="icon" color="primary" sx={{ fontSize: 40 }} /> */}
         <h1>
           <Link className="link" to="/">
             Home
@@ -51,24 +52,24 @@ const Header = () => {
           )}
         </h1>
         {/* //use the avatar to logout without button? if yes, needs hover  */}
-        <p>
+        {/* <p>
           {user && (
             <button onClick={logOut} type="submit" className="btn btn-primary">
               LogOut
             </button>
           )}
-        </p>
-        <h1>
+        </p> */}
+        <div>
           {user && (
             <AccountCircleIcon
               sx={{ fontSize: 40 }}
-              color="primary"
               onClick={logOut}
               type="submit"
               className="userAvatar"
             />
           )}
-        </h1>
+          <div class="hide">log out</div>
+        </div>
         {/* <h2>{user.email}</h2> new: display user icon instead of email*/}
       </nav>
     </div>

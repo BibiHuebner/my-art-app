@@ -59,8 +59,8 @@ const Login = () => {
     <div className="App">
       <div className="LogContainer">
         {/* //text align: center, display flex+ justify content: center */}
-        <ColorLensIcon color="primary" />
-        <h3>Login to save your favorites</h3>
+        {/* <ColorLensIcon sx={{ fontSize: 40 }} color="#47484b" /> */}
+        <h3 className="userInfo">Login to save your favorites</h3>
         <div className="row d-flex justify-content-center">
           <div className="col-md-4">
             <form id="loginform" onSubmit={loginSubmit}>
@@ -97,7 +97,7 @@ const Login = () => {
                 <button
                   onClick={logOut}
                   type="submit"
-                  className="btn btn-primary"
+                  className="btn btn-secondary"
                 >
                   LogOut
                 </button>
@@ -105,7 +105,7 @@ const Login = () => {
                 <button
                   onClick={handleLogin}
                   type="submit"
-                  className="btn btn-primary"
+                  className="btn btn-secondary"
                 >
                   Login
                 </button>

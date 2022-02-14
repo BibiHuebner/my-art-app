@@ -11,13 +11,23 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
+// import {
+//   getFirestore,
+//   addDoc,
+//   doc,
 
+//   getDoc,
+//   updateDoc,
+//   arrayUnion,
+//   arrayRemove,
+// } from "firebase/firestore";
 //context ? storeFavorite?
 const Details = () => {
   const { id } = useParams();
   const [details, setDetails] = useState({ id });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const detailUrl = () => {
     fetch(
       `https://api.harvardartmuseums.org/object/${id}?apikey=58de05bf-ee95-4975-9602-dd1902a5464e`
@@ -42,6 +52,7 @@ const Details = () => {
     detailUrl();
   }, []);
   console.log(`details`, details);
+
   return (
     <div className="detailscard">
       <Container className="detailscard">
@@ -57,8 +68,7 @@ const Details = () => {
                 color="primary"
                 className="like"
                 type="submit"
-                // onClick={storeFavorite}
-                //className="btn btn-primary"
+                //onClick={() => saveFav(artobject)}
               />
               <Card.Title>{details.title}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">

@@ -50,8 +50,12 @@ const Register = () => {
   return (
     <div className="App">
       <div className="LogContainer">
-        <ColorLensIcon color="primary" sx={{ fontSize: 40 }} />
-        <h3>
+        {/* <ColorLensIcon
+          className="iconInForm"
+          color="primary"
+          sx={{ fontSize: 40 }}
+        /> */}
+        <h3 className="userInfo">
           sign up to save your favorites and to have access to your gallery
         </h3>
         <div className="row d-flex justify-content-center">
@@ -91,7 +95,7 @@ const Register = () => {
 
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-secondary"
                 onClick={handleRegisterClick}
               >
                 Register

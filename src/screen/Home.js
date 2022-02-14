@@ -1,21 +1,22 @@
 //pagination? how to display 100 more? infinite scroll/more button
-//like buttons
 //import InfiniteScroll from "react-infinite-scroll-component";
 //refresh button if infinite scrolling takes too long
-//fix filter
 //fix loader image
 //only show like buttons when logged in, buttons in the image
+import Button from "react-bootstrap/Button";
 import React, { useState, useContext } from "react";
 //import List from "./List";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import "../App.css";
+import Container from "react-bootstrap/Container";
 import useFetch from "../components/useFetch";
 import ArtObject from "../components/ArtObject";
 import { ListContext } from "../context/listContext";
 import { AuthContext } from "../context/authContext";
 import Loader from "../components/Loader";
 import { getStorage, ref } from "firebase/storage";
+import InfiniteScroll from "react-infinite-scroll-component";
 import {
   getFirestore,
   addDoc,
@@ -30,22 +31,27 @@ import {
   arrayUnion,
   arrayRemove,
 } from "firebase/firestore";
+
 const Home = () => {
   const { user, setUser } = useContext(AuthContext);
   //const { getMyData } = useContext(ListContext);
   //console.log("context", context);
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  // const [itemsPerPage, setItemsPerPage] = useState(10);
+  // const [pages] = useState(Math.round)(data.length / dataLimit));
+
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
-  const { list, loading, error } = useFetch(
-    "https://api.harvardartmuseums.org/object?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&size=10&sort=random&fields=century,title,id,description,medium,technique,primaryimageurl,alttext,culture,people"
+  const { list, loading, error, totalPages } = useFetch(
+    `https://api.harvardartmuseums.org/object?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&size=10&page=${currentPage}&sort=random&fields=century%2Ctitle%2Cid%2Cdescription%2Cmedium%2Ctechnique%2Cprimaryimageurl%2Calttext%2Cculture%2Cpeople`
   );
   // pagination: error 401 if i include &size=10&page=10, test again in postman
   // try this: altered API call with pagination:
   //"https://api.harvardartmuseums.org/object?apikey=58de05bf-ee95-4975-9602-dd1902a5464e&hasimage=1&size=10&page=5&sort=random&fields=century%2Ctitle%2Cid%2Cdescription%2Cmedium%2Ctechnique%2Cprimaryimageurl%2Calttext%2Cculture%2Cpeople"
   //console.log(list, loading, error);
-  console.log("user", user);
+  // console.log("user", user);
   if (loading) return <Loader />; //<h1>LOADING</h1>
   if (error) console.log(error);
   const db = getFirestore();
@@ -84,31 +90,6 @@ const Home = () => {
     }
   };
 
-  const removeFav = async (artobject) => {
-    //we check whether document exists in favCollection, search for id
-    //if it exists, do sth
-    //if not: alert
-    const favoriteRef = doc(db, "favorites", user.uid);
-    const favoriteSnap = await getDoc(favoriteRef);
-    //if the docsnap exists I want to update the specific document
-
-    if (favoriteSnap.exists()) {
-      //check whether we have that artobject in list of favs
-      favoriteSnap.data().myFav.forEach(async (oneFav) => {
-        if (oneFav.id === artobject.id) {
-          console.log("remove item from array");
-          await updateDoc(favoriteRef, {
-            myFav: arrayRemove(artobject),
-          });
-        } else {
-          console.log("you haven't liked this before");
-        }
-      });
-    } else {
-      console.log("Document does not exist");
-    }
-  };
-
   return (
     <div /*className="cardgrid"*/ className="container">
       <div className="search">
@@ -119,7 +100,7 @@ const Home = () => {
           value={searchTerm}
           onChange={handleChange}
         ></input>
-        {/* <SearchIcon /> */}
+
         {/* <button className="refreshbutton" onClick={useFetch}>
           refresh
         </button> */}
@@ -160,11 +141,16 @@ const Home = () => {
             // it's possible to view the image without it
             .map((artobject, index) => {
               return (
-                <div>
-                  {artobject.primaryimageurl !== null && (
-                    <>
-                      <ArtObject key={artobject.id} artobject={artobject} />
-                      <button
+                <div className="itemsHomepage">
+                  <Container>
+                    {/* <Row>
+                      <Col md="auto"> */}
+                    {artobject.primaryimageurl !== null && (
+                      <>
+                        <ArtObject key={artobject.id} artobject={artobject} />
+
+                        {/* //buttons disabled, use the heart-icon to like   */}
+                        {/* <button
                         onClick={() => saveFav(artobject)}
                         type="submit"
                         className="btn btn-primary"
@@ -177,19 +163,35 @@ const Home = () => {
                         className="btn btn-primary"
                       >
                         unlike
-                      </button>
-                      <FavoriteBorderOutlinedIcon
-                        onClick={() => saveFav(artobject)}
+                      </button> */}
+                        <FavoriteBorderOutlinedIcon
+                          className="saveToGallery"
+                          onClick={() => saveFav(artobject)}
+                          type="submit"
+                          color="primary"
+                        />
+                        <div class="hide">save</div>
+                        {/* <FavoriteIcon
+                        className="unliked"
+                        onClick={() =>
+                          Favs.removeFav(
+                            getDoc,
+                            updateDoc,
+                            arrayRemove,
+                            db,
+                            user,
+                            doc,
+                            artobject
+                          )
+                        }
                         type="submit"
                         color="primary"
-                      />
-                      <FavoriteIcon
-                        onClick={() => removeFav(artobject)}
-                        type="submit"
-                        color="primary"
-                      />
-                    </>
-                  )}
+                      /> */}
+                      </>
+                    )}
+                    {/* </Col>
+                    </Row> */}
+                  </Container>
                 </div>
               );
             })
@@ -205,6 +207,24 @@ const Home = () => {
           </p> //loader image not working
         )}
         {error && <p>{error}</p>}
+      </div>
+      <div className="turnPage">
+        <Button
+          variant="outline-secondary" //anonymous function disabled attribute
+          onClick={() => setCurrentPage(currentPage - 1)}
+          // className={`prev ${currentPage === 1 ? "disabled" : ""}`}
+          disabled={currentPage === 1 ? true : false}
+        >
+          prev
+        </Button>{" "}
+        <Button
+          variant="outline-secondary"
+          onClick={() => setCurrentPage(currentPage + 1)}
+          // className={`next ${currentPage === totalPages ? "disabled" : ""}`}
+          disabled={currentPage === totalPages ? true : false}
+        >
+          next
+        </Button>{" "}
       </div>
     </div>
   );

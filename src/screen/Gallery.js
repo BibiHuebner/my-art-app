@@ -3,20 +3,28 @@ import ColorLensIcon from "@mui/icons-material/ColorLens";
 import { AuthContext } from "../context/authContext";
 import ArtObject from "../components/ArtObject";
 import "../App.css";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Favs from "../utils/Unlike";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import {
   getFirestore,
   collection,
   query,
+  getDoc,
+  updateDoc,
+  arrayRemove,
   where,
   getDocs,
-  getDoc,
   doc,
   deleteDoc,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-//how do I reference my collection here? or my document?
+
 const Gallery = () => {
   const { user, setUser, logIn } = useContext(AuthContext);
   console.log("user", user);
@@ -25,11 +33,33 @@ const Gallery = () => {
   const db = getFirestore();
   console.log("db", db);
 
+  const removeFav = async (artobject) => {
+    //we check whether document exists in favCollection, search for id
+    //if it exists, do sth
+    //if not: alert
+    const favoriteRef = doc(db, "favorites", user.uid);
+    const favoriteSnap = await getDoc(favoriteRef);
+    //if the docsnap exists I want to update the specific document
+
+    if (favoriteSnap.exists()) {
+      //check whether we have that artobject in list of favs
+      favoriteSnap.data().myFav.forEach(async (oneFav) => {
+        if (oneFav.id === artobject.id) {
+          console.log("remove item from array");
+          await updateDoc(favoriteRef, {
+            myFav: arrayRemove(artobject),
+          });
+        } else {
+          console.log("you haven't liked this before");
+        }
+      });
+      savedFaves();
+    } else {
+      console.log("Document does not exist");
+    }
+  };
+
   const savedFaves = async () => {
-    const q = query(
-      collection(db, "favorites"),
-      where("userId", "==", user.uid)
-    );
     //Execute a query
     //After creating a query object, use the get() function to retrieve the results:
     //if this querysnapshot is empty create new document otherwise update
@@ -70,14 +100,14 @@ const Gallery = () => {
       console.log(e);
     }
   };
+  //call remove function every time we removed new page
   useEffect(() => {
     savedFaves();
   }, []);
 
   return (
     <div className="gallery">
-      <ColorLensIcon className="logo" color="primary" sx={{ fontSize: 40 }} />
-      <h2>your collection</h2>
+      {/* <h2 className="userInfo">your collection</h2> */}
       {/* returns the favorites only when they are not null, change when loader: */}
       {/* //use the ArtObject component again or just create html element 
       //then
@@ -95,40 +125,67 @@ const Gallery = () => {
       “unfavorite”. */}
       {favorites &&
         favorites.myFav.map((oneFav) => {
-          console.log("favorites", favorites);
-          console.log("here ${uid} favorites");
+          // console.log("favorites", favorites);
+          // console.log("here ${uid} favorites");
           return (
-            <div className="detailscard">
-              <h1>{oneFav.title}</h1>
-              {/* <h1> {onepainting.people ? onepainting.people[0].name : ""}</h1>
-              <h2>{onepainting.culture}</h2> */}
-              <h3> {oneFav.century}</h3>
-              {/* <h4>{onepainting.period}</h4>
-              <h4>{onepainting.technique}</h4>
-              <h4>{onepainting.medium}</h4>
-              <h4>{onepainting.classification}</h4> */}
-              <FavoriteBorderOutlinedIcon />
-              <img
-                className="imageitem"
-                src={oneFav.primaryimageurl}
-                alt={oneFav.description}
-              />
+            <div classname="row">
+              <div classname="column">
+                {/* <div className="gallery"> */}
+                <Container className="detailscard">
+                  {/* <Row classname="detailscard"> */}
+                  <Row className="justify-content-md-center" Row xs="auto">
+                    <Col lg={true}>
+                      <Card classname="detailscard" className="text-center">
+                        {/* <div className="overlayContainer"> */}
+                        <Card.Img
+                          // classname="overlayImage"
+                          variant="top"
+                          src={oneFav.primaryimageurl}
+                          alt={oneFav.description}
+                        />
+                        {/* <div class="overlay">
+                          <div class="text">
+                            {oneFav.title}
+                            {oneFav.people ? oneFav.people[0].name : ""}
+                            {oneFav.century}
+                            {oneFav.period}
+                            {oneFav.culture}
+                            {oneFav.technique}
+                            {oneFav.medium}
+                            {oneFav.classification}
+                          </div>
+                        </div> */}
+                        {/* </div> */}
+                        <Card.Body className="detailscard">
+                          <FavoriteIcon
+                            color="primary"
+                            className="removeFromGallery"
+                            type="submit"
+                            onClick={() => removeFav(oneFav)}
+                          />
+                          <div class="hide">remove</div>
+                          <Card.Title>{oneFav.title}</Card.Title>
+                          <Card.Subtitle className="mb-2 text-muted">
+                            {oneFav.people ? oneFav.people[0].name : ""}
+                          </Card.Subtitle>
+                          <Card.Text>{oneFav.century}</Card.Text>
+                          <Card.Text>{oneFav.period}</Card.Text>
+                          <Card.Text> {oneFav.culture}</Card.Text>
+                          <Card.Text> {oneFav.technique}</Card.Text>
+                          <Card.Text> {oneFav.medium}</Card.Text>
+                          <Card.Text>{oneFav.classification}</Card.Text>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
             </div>
-
-            // <img
-            //   className="imageitem"
-            //   src={onepainting.primaryimageurl}
-            //   alt={onepainting.title}
-            // />
-            //<p>{favorites.century}</p>
-
-            // <p>{onepainting.century}</p>
-            // <p>{onepainting.title}</p>
           );
         })}
-      <button type="submit" className="btn btn-primary">
+      {/* <button type="submit" className="btn btn-primary">
         delete from favorites
-      </button>
+      </button> */}
       {/* // onClick: {deleteFromFavorites} */}
     </div>
   );
