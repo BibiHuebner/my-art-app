@@ -1,5 +1,3 @@
-//pagination? how to display 100 more? infinite scroll/more button
-//import InfiniteScroll from "react-infinite-scroll-component";
 import Button from "react-bootstrap/Button";
 import React, { useState, useContext } from "react";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -12,7 +10,7 @@ import { ListContext } from "../context/listContext";
 import { AuthContext } from "../context/authContext";
 import Loader from "../components/Loader";
 import { getStorage, ref } from "firebase/storage";
-import InfiniteScroll from "react-infinite-scroll-component";
+//import InfiniteScroll from "react-infinite-scroll-component";
 import {
   getFirestore,
   addDoc,
