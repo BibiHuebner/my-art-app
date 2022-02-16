@@ -1,11 +1,7 @@
 //pagination? how to display 100 more? infinite scroll/more button
 //import InfiniteScroll from "react-infinite-scroll-component";
-//refresh button if infinite scrolling takes too long
-//fix loader image
-//only show like buttons when logged in, buttons in the image
 import Button from "react-bootstrap/Button";
 import React, { useState, useContext } from "react";
-//import List from "./List";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import "../App.css";
@@ -34,8 +30,6 @@ import {
 
 const Home = () => {
   const { user, setUser } = useContext(AuthContext);
-  //const { getMyData } = useContext(ListContext);
-  //console.log("context", context);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   // const [itemsPerPage, setItemsPerPage] = useState(10);

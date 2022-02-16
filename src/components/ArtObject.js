@@ -1,5 +1,3 @@
-//an die neue url noch anpassen: link/keys id stimmt dann nicht mehr
-
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import {
