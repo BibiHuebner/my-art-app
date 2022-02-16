@@ -1,5 +1,3 @@
-//display details for 1 clicked element
-//fetch with more details than 1st fetch
 import React from "react";
 import { useEffect, useState } from "react";
 import List from "./List";

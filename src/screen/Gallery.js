@@ -7,7 +7,6 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-// import Favs from "../utils/Unlike";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from "react-router-dom";
 
@@ -88,7 +87,7 @@ const Gallery = () => {
       console.log(e);
     }
   };
-  //call remove function every time we removed new page
+  //call remove function every time we removed, new page
   useEffect(() => {
     savedFaves();
   }, []);
@@ -102,7 +101,7 @@ const Gallery = () => {
         //make sure
       address right painting //show “favorite” button if item is not in user
       favorites 
-      //show “unfavorite” button if item us in the favorites. 
+      //show “unfavorite” button if item is in the favorites. 
       // edit
       so that loads the Favorites into one array when screen is loaded 
       //then
