@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import ColorLensIcon from "@mui/icons-material/ColorLens";
 import { AuthContext } from "../context/authContext";
 import ArtObject from "../components/ArtObject";
 import "../App.css";
@@ -8,8 +7,9 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Favs from "../utils/Unlike";
+// import Favs from "../utils/Unlike";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Link } from "react-router-dom";
 
 import {
   getFirestore,
@@ -84,18 +84,6 @@ const Gallery = () => {
         // doc.data() will be undefined in this case
         console.log("No such document!");
       }
-
-      // const querySnapshot = await getDocs(q); //promise, so add try and catch block
-      // //use loading state : to fix problem with asynchronicity
-
-      // console.log("querySnapshot", querySnapshot);
-      // querySnapshot.forEach((doc) => {
-      //   // doc.data() is never undefined for query doc snapshots
-      //   setFavorites(doc.data());
-      //   console.log(doc.data());
-      //   console.log(doc.id, " => ", doc.data());
-      //   //clg not working
-      // });
     } catch (e) {
       console.log(e);
     }
@@ -107,7 +95,6 @@ const Gallery = () => {
 
   return (
     <div className="gallery">
-      {/* <h2 className="userInfo">your collection</h2> */}
       {/* returns the favorites only when they are not null, change when loader: */}
       {/* //use the ArtObject component again or just create html element 
       //then
@@ -143,19 +130,7 @@ const Gallery = () => {
                           src={oneFav.primaryimageurl}
                           alt={oneFav.description}
                         />
-                        {/* <div class="overlay">
-                          <div class="text">
-                            {oneFav.title}
-                            {oneFav.people ? oneFav.people[0].name : ""}
-                            {oneFav.century}
-                            {oneFav.period}
-                            {oneFav.culture}
-                            {oneFav.technique}
-                            {oneFav.medium}
-                            {oneFav.classification}
-                          </div>
-                        </div> */}
-                        {/* </div> */}
+                        {/* <Link to={`/details/${artobject.id}`}></Link> */}
                         <Card.Body className="detailscard">
                           <FavoriteIcon
                             color="primary"
@@ -183,10 +158,6 @@ const Gallery = () => {
             </div>
           );
         })}
-      {/* <button type="submit" className="btn btn-primary">
-        delete from favorites
-      </button> */}
-      {/* // onClick: {deleteFromFavorites} */}
     </div>
   );
 };
