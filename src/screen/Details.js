@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import List from "./List";
 import "../App.css";
 import { useParams } from "react-router-dom";
@@ -9,23 +9,17 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-// import {
-//   getFirestore,
-//   addDoc,
-//   doc,
+import { AuthContext } from "../context/authContext";
+import { LikeContext } from "../context/likeContext";
+import useFetch from "../components/useFetch";
 
-//   getDoc,
-//   updateDoc,
-//   arrayUnion,
-//   arrayRemove,
-// } from "firebase/firestore";
-//context ? storeFavorite?
 const Details = () => {
   const { id } = useParams();
   const [details, setDetails] = useState({ id });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const { saveFav, artobject } = useContext(LikeContext);
+  // const saveFav = (artobject) => {
   const detailUrl = () => {
     fetch(
       `https://api.harvardartmuseums.org/object/${id}?apikey=58de05bf-ee95-4975-9602-dd1902a5464e`
@@ -66,7 +60,7 @@ const Details = () => {
                 color="primary"
                 className="like"
                 type="submit"
-                //onClick={() => saveFav(artobject)}
+                onClick={() => saveFav(artobject)}
               />
               <Card.Title>{details.title}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
@@ -85,4 +79,5 @@ const Details = () => {
     </div>
   );
 };
+//};
 export default Details;

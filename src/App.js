@@ -18,6 +18,7 @@ import Details from "./screen/Details";
 import Register from "./screen/Register";
 import { ListContextProvider } from "./context/listContext";
 import { AuthContextProvider } from "./context/authContext";
+import { LikeContextProvider } from "./context/likeContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 // to do activeClassName="active" end
@@ -29,24 +30,26 @@ function App() {
         <BrowserRouter>
           <Header />
           <ListContextProvider>
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route path="/details/:id" component={Details}>
-                <Details />
-              </Route>
-              <Route path="/login">
-                <Login />
-              </Route>
-              <Route exact path="/register">
-                <Register />
-              </Route>
-              <ProtectedRoute path="/gallery">
-                <Gallery />
-              </ProtectedRoute>
-              <Route path="/List" component={List} />
-            </Switch>
+            <LikeContextProvider>
+              <Switch>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route path="/details/:id" component={Details}>
+                  <Details />
+                </Route>
+                <Route path="/login">
+                  <Login />
+                </Route>
+                <Route exact path="/register">
+                  <Register />
+                </Route>
+                <ProtectedRoute path="/gallery">
+                  <Gallery />
+                </ProtectedRoute>
+                <Route path="/List" component={List} />
+              </Switch>
+            </LikeContextProvider>
           </ListContextProvider>
         </BrowserRouter>
       </AuthContextProvider>
