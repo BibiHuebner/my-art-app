@@ -18,7 +18,8 @@ const Details = () => {
   const [details, setDetails] = useState({ id });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { saveFav, artobject } = useContext(LikeContext);
+  const { saveFav } = useContext(LikeContext);
+  const { user } = useContext(AuthContext);
   // const saveFav = (artobject) => {
   const detailUrl = () => {
     fetch(
@@ -56,12 +57,14 @@ const Details = () => {
               src={details.primaryimageurl}
             />
             <Card.Body classname="detailscard">
-              <FavoriteBorderOutlinedIcon
-                color="primary"
-                className="like"
-                type="submit"
-                onClick={() => saveFav(artobject)}
-              />
+              {user && (
+                <FavoriteBorderOutlinedIcon
+                  color="primary"
+                  className="like"
+                  type="submit"
+                  onClick={() => saveFav(details)}
+                />
+              )}
               <Card.Title>{details.title}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
                 {details.people ? details.people[0].name : ""}

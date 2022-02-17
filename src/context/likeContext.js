@@ -28,24 +28,7 @@ export const LikeContextProvider = (props) => {
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const useFetch = (url) => {
-    useEffect(() => {
-      fetch(url)
-        .then((res) => {
-          //console.log(res);
-          return res.json();
-        })
-        .then((data) => {
-          console.log(`data`, data);
 
-          setLoading(false);
-        })
-        .catch((error) => {
-          setError(error);
-          // console.log(`error`, error);
-        });
-    }, [url]); //when this changes useeffect is run again, fetching again in case the url changes
-  };
   const db = getFirestore();
 
   const saveFav = async (artobject) => {
